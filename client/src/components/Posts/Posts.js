@@ -3,7 +3,6 @@ import { Grid } from "@material-ui/core";
 import { useSelector } from "react-redux";
 
 import Post from "./Post/Post";
-import "./styles.css";
 
 const Posts = () => {
   // state.posts from reducers and get through useSelector hook

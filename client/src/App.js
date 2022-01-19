@@ -1,12 +1,12 @@
+import { Container, Row, Col } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
-import "bootstrap/dist/css/bootstrap.min.css";
 
+import "./App.css";
 import { getPosts } from "./actions/posts.actions.js";
 import Posts from "./components/Posts/Posts";
 import Form from "./components/Form/Form";
-import "./App.css";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -16,29 +16,18 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <Container maxWidth="lg">
-      <AppBar position="static" color="inherit">
-        <Typography variant="h2" align="center">
-          Memories
-        </Typography>
-      </AppBar>
-      <Grow in>
-        <Container>
-          <Grid
-            container
-            justifyContent="space-between"
-            alignItems="stretch"
-            spacing={3}
-          >
-            <Grid item xs={12} sm={7}>
-              <Posts />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Form />
-            </Grid>
-          </Grid>
-        </Container>
-      </Grow>
+    <Container>
+      <h1 className="text-center title"> Memories</h1>
+      <Container>
+        <Row>
+          <Col md={8}>
+            <Posts />
+          </Col>
+          <Col md={4}>
+            <Form />
+          </Col>
+        </Row>
+      </Container>
     </Container>
   );
 };
