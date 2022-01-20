@@ -7,13 +7,16 @@ import {
   getPost,
   updatePost,
   deletePost,
+  likePost,
 } from "../controllers/posts.controllers.js";
 
 const router = express.Router();
 
 router.get("/", getPosts);
-router.post("/", createPost);
 router.get("/:id", getPost);
+router.post("/", createPost);
 router.patch("/:id", updatePost);
+router.patch("/:id/likePost", likePost);
 router.delete("/:id", deletePost);
+
 export default router;
