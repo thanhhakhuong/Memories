@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FileBase from "react-file-base64";
 
-import { createPost } from "../../actions/posts.actions";
+import { createPost, updatePost } from "../../actions/posts.actions";
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
+  const dispatch = useDispatch();
+
   const [post, setPost] = useState({
     creator: "",
     title: "",
@@ -12,20 +14,37 @@ const Form = () => {
     tags: "",
     selectedFile: "",
   });
-
-  const dispatch = useDispatch();
+  const currentPost = useSelector((state) =>
+    currentId ? state.posts.find((message) => message._id === currentId) : null
+  );
+  useEffect(() => {
+    if (currentPost) setPost(currentPost);
+  }, [currentPost]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(post);
-    dispatch(createPost(post));
+    if (currentId === 0) {
+      dispatch(createPost(post));
+    } else {
+      dispatch(updatePost(currentId, post));
+    }
+    clear();
   };
 
-  const clear = () => {};
+  const clear = () => {
+    setCurrentId(0);
+    setPost({
+      creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    });
+  };
 
   return (
     <form className="form" onSubmit={handleSubmit}>
-      <h3>Creating a Memory</h3>
+      <h3>{currentId ? `Editing "${post.title}"` : "Creating a Memory"}</h3>
       <input
         className="form-input"
         name="creator"

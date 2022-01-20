@@ -1,6 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import "./App.css";
@@ -9,11 +9,12 @@ import Posts from "./components/Posts/Posts";
 import Form from "./components/Form/Form";
 
 const App = () => {
+  const [currentId, setCurrentId] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPosts());
-  }, [dispatch]);
+  }, [dispatch, currentId]);
 
   return (
     <Container>
@@ -21,10 +22,10 @@ const App = () => {
       <Container>
         <Row>
           <Col md={8}>
-            <Posts />
+            <Posts setCurrentId={setCurrentId} />
           </Col>
           <Col md={4}>
-            <Form />
+            <Form currentId={currentId} setCurrentId={setCurrentId} />
           </Col>
         </Row>
       </Container>
