@@ -54,13 +54,12 @@ const Form = () => {
         placeholder="Tags"
         onChange={(e) => setPost({ ...post, tags: e.target.value.split(",") })}
       />
-      <label class="file-upload">
+      <label className="file-upload">
         <FileBase
           type="file"
           multiple={false}
           onDone={({ base64 }) => setPost({ ...post, selectedFile: base64 })}
         />
-        Custom Upload
       </label>
       <button type="submit">Submit</button>
       <button onClick={clear}>Clear</button>
